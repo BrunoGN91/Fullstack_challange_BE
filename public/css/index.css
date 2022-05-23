@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+    margin: auto;
+    padding: auto;
+    font-family: "Raleway", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* HEader */
+
+.header_title {
+    font-size: 2rem;
+    padding-top: 50px;
+}
