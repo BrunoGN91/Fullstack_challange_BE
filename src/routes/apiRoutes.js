@@ -9,6 +9,8 @@ router.post('/apiPost', apiController.setUsers);
 router.post('/loginProcess', apiController.loginProcess);
 router.post('/setNewValue', apiController.setNewValue);
 router.post('/setOperationList', apiController.setOperationList)
+router.post('/setNewBalance', apiController.setBalance)
+
 
 
 

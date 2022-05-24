@@ -26,7 +26,6 @@ module.exports = {
     loginProcess: async (req, res) => {
       try {
         let user = await JSON.parse(Object.keys(req.body)[0]);
-        console.log(user);
         let findUser = await db.User.findOne({
           where: {
             email: user.email,
@@ -40,6 +39,28 @@ module.exports = {
         console.log("error");
       }
     },
+    setBalance: async (req, res) => {
+      try {
+       let value = await JSON.parse(Object.keys(req.body)[0]);
+       let newValue = await db.User.update({
+        balance: value.total
+       },{
+         where: {
+           id: value.id
+         }
+       })
+       let user = await db.User.findOne({
+         where: {
+           id: value.id
+         }
+       })
+       res.send(user)
+       return newValue
+      } catch (error) {
+        
+      }
+    }
+    ,
     setNewValue: async (req, res) => {
       try {
         let value = await JSON.parse(Object.keys(req.body)[0]);
@@ -63,7 +84,6 @@ module.exports = {
             users_fk: value
           }
         })
-        console.log(findOperations);
         res.send(findOperations)
       } catch (error) {
         const newError = new Error();
