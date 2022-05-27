@@ -102,16 +102,17 @@ module.exports = {
         res.json(data)
       })
     },
-    deleteOperation: (req, res) => {
-      
-        db.Operation.findOne({
+    deleteOperation: async (req, res) => {
+       let operationToDelete = await db.Operation.findOne({
           where: {
             id: req.params.id
           }
-        }).then(operation => {
-          operation.destroy()
         })
-      
+        if(operationToDelete !== null) {
+          operationToDelete.destroy()
+        } else {
+          return;
+        }
     },
     usersOperations: (req, res) => {
       db.Operation.findAll({
