@@ -10,6 +10,14 @@ router.post('/loginProcess', apiController.loginProcess);
 router.post('/setNewValue', apiController.setNewValue);
 router.post('/setOperationList', apiController.setOperationList)
 router.post('/setNewBalance', apiController.setBalance)
+router.get('/operationsList', apiController.operationsList)
+router.get('/operationsList/:id', apiController.operation)
+router.delete('/operationsList/:id', apiController.deleteOperation)
+router.get('/usersOperations/:id', apiController.usersOperations)
+
+
+
+
 
 
 

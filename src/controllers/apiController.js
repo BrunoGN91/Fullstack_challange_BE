@@ -89,5 +89,38 @@ module.exports = {
         const newError = new Error();
         console.log(newError);
       }
+    },
+    operationsList: (req, res) => {
+      db.Operation.findAll().then(data => res.json(data))
+    },
+    operation: (req, res) => {
+      db.Operation.findOne({
+        where: {
+          id: req.params.id
+        }
+      }).then(data => {
+        res.json(data)
+      })
+    },
+    deleteOperation: (req, res) => {
+      
+        db.Operation.findOne({
+          where: {
+            id: req.params.id
+          }
+        }).then(operation => {
+          operation.destroy()
+        })
+      
+    },
+    usersOperations: (req, res) => {
+      db.Operation.findAll({
+        where: {
+          users_fk: req.params.id
+        }
+      }).then(data => {
+        res.json(data)
+      })
     }
+
 }
