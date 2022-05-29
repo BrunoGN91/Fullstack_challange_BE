@@ -2,7 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const usersJosn = fs.readFileSync((path.resolve(__dirname,"../database/users.json")))
 const usersDb = JSON.parse(usersJosn);
-const db = require("../../database/models")
+const db = require("../../database/models");
+const bcrypt = require('bcryptjs');
 
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
         let data = await JSON.parse(Object.keys(req.body)[0]);
         let newUser = await db.User.create({
           email: data.email,
-        password: data.password,
+        password: bcrypt.hashSync(data.password, 10),
         balance: data.balance
         })
        
@@ -28,13 +29,18 @@ module.exports = {
         let user = await JSON.parse(Object.keys(req.body)[0]);
         let findUser = await db.User.findOne({
           where: {
-            email: user.email,
-            password: user.password
+            email: user.email
           }
         })
-    
-        res.send(findUser)
-       
+        if(findUser) {
+          
+          let comparePasswords = await bcrypt.compareSync(user.password, findUser.dataValues.password)
+         
+          if(comparePasswords) {
+            
+            res.send(findUser)
+          }
+        }
       } catch (error) {
         console.log("error");
       }
