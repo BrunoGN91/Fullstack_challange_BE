@@ -73,6 +73,7 @@ module.exports = {
         let newValue = await db.Operation.create({
           description: value.description,
           total: value.value,
+          category: value.category,
           users_fk: value.users_fk
         });
         

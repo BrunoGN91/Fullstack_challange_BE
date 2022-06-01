@@ -15,13 +15,24 @@ module.exports = (sequelize, dataTypes) => {
             total: {
                 type: dataTypes.INTEGER
             },
+            category: {
+                type: dataTypes.STRING(45)
+            },
             users_fk: {
                 type: dataTypes.INTEGER
+            },
+            lastUpdated: {
+                type: dataTypes.DATE,
+                defaultValue: sequelize.literal(
+                    "CURRENT_TIMESTAMP"
+                  ),
+                allowNull: false
             }
+            
     }
     let config = {
         tableName: "operations",
-        timestamps: false
+        timestamps: false,
     }
 
     const Operation = sequelize.define(alias,cols,config);
