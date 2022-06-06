@@ -4,6 +4,7 @@ const usersJosn = fs.readFileSync((path.resolve(__dirname,"../database/users.jso
 const usersDb = JSON.parse(usersJosn);
 const db = require("../../database/models");
 const bcrypt = require('bcryptjs');
+const { resolve } = require("path");
 
 
 module.exports = {
@@ -69,15 +70,45 @@ module.exports = {
     ,
     setNewValue: async (req, res) => {
       try {
-        let value = await JSON.parse(Object.keys(req.body)[0]);
-        let newValue = await db.Operation.create({
-          description: value.description,
-          total: value.value,
-          category: value.category,
-          users_fk: value.users_fk
-        });
+        const value = await JSON.parse(Object.keys(req.body)[0]);
         
-        return newValue
+        if(value.category === "add_balance") {
+
+          function twoValues () {
+            let usersBalance = db.User.increment({
+              balance: + Number(value.value)
+            },{
+              where: {
+                id: value.users_fk
+              }
+            })
+            console.log(usersBalance);
+            let newValue =  db.Operation.create({
+              description: value.description,
+              total: Number(value.value),
+              category: value.category,
+              users_fk: value.users_fk
+            })
+           return new Promise(function(resolve, reject){
+             resolve([usersBalance, newValue])
+           })
+          }
+          async function run() {
+            const [usersBalance, newValue] = await twoValues()
+            console.log(usersBalance, newValue);
+          }
+         
+         run()
+
+        } else {
+          let newValue = await db.Operation.create({
+            description: value.description,
+            total: value.value,
+            category: value.category,
+            users_fk: value.users_fk
+          });
+          return newValue
+        }
       } catch (error) {
        
       }
@@ -85,10 +116,10 @@ module.exports = {
     setOperationList: async (req, res) => {
       try {
         let value = await JSON.parse(Object.keys(req.body)[0]);
-
+        
         let findOperations = await db.Operation.findAll({
           where : {
-            users_fk: value
+            users_fk: Number(value)
           }
         })
         res.send(findOperations)
@@ -110,6 +141,8 @@ module.exports = {
       })
     },
     deleteOperation: async (req, res) => {
+      let value = await JSON.parse(Object.keys(req.body)[0]);
+     
        let operationToDelete = await db.Operation.findOne({
           where: {
             id: req.params.id
@@ -117,6 +150,16 @@ module.exports = {
         })
         if(operationToDelete !== null) {
           operationToDelete.destroy()
+          if (operationToDelete.category === 'add_balance') {
+            const user = await db.User.findOne({
+              where: {
+                id: value
+            }})
+            await user.decrement('balance', {
+              by: operationToDelete.total
+            })
+           
+          }
         } else {
           return;
         }
@@ -129,6 +172,41 @@ module.exports = {
       }).then(data => {
         res.json(data)
       })
+    },
+    updateOperation: async (req, res) => {
+        try {
+          let value = await JSON.parse(Object.keys(req.body)[0]);
+          let updatedOperation = await db.Operation.update({
+              name: value.name,
+              description: value.description,
+              total: value.value,
+              category: value.category,
+              users_fk: value.users_fk
+          }, {where: {
+            id: value.id
+          }})
+
+          return updatedOperation
+        } catch (error) {
+          console.log("error");
+        }
+    },
+    getAllUsers: async (req, res) => {
+        try {
+          const allUsers = await db.User.findAll()
+          res.json(allUsers)
+        } catch (error) {
+          
+        }
+    },
+    getUser: async (req, res) => {
+      const user = await db.User.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+      
+      res.json(user)
     }
 
 }
