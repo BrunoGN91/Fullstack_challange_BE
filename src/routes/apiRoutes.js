@@ -12,6 +12,7 @@ router.get('/users/:id', apiController.getUser);
 router.post('/setNewValue', apiController.setNewValue);
 router.post('/setOperationList', apiController.setOperationList)
 router.post('/setNewBalance', apiController.setBalance)
+router.put('/editInitialBalance', apiController.editInitialBalance)
 router.get('/operationsList', apiController.operationsList)
 router.get('/operationsList/:id', apiController.operation)
 router.put('/operationsList/:id', apiController.deleteOperation)

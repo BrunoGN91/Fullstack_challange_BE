@@ -43,7 +43,7 @@ module.exports = {
           }
         }
       } catch (error) {
-        console.log("error");
+        console.log("Login process error");
       }
     },
     setBalance: async (req, res) => {
@@ -72,43 +72,15 @@ module.exports = {
       try {
         const value = await JSON.parse(Object.keys(req.body)[0]);
         
-        if(value.category === "add_balance") {
-
-          function twoValues () {
-            let usersBalance = db.User.increment({
-              balance: + Number(value.value)
-            },{
-              where: {
-                id: value.users_fk
-              }
-            })
-            console.log(usersBalance);
-            let newValue =  db.Operation.create({
-              description: value.description,
-              total: Number(value.value),
-              category: value.category,
-              users_fk: value.users_fk
-            })
-           return new Promise(function(resolve, reject){
-             resolve([usersBalance, newValue])
-           })
-          }
-          async function run() {
-            const [usersBalance, newValue] = await twoValues()
-            console.log(usersBalance, newValue);
-          }
-         
-         run()
-
-        } else {
           let newValue = await db.Operation.create({
             description: value.description,
             total: value.value,
             category: value.category,
             users_fk: value.users_fk
           });
+
           return newValue
-        }
+        
       } catch (error) {
        
       }
@@ -150,16 +122,7 @@ module.exports = {
         })
         if(operationToDelete !== null) {
           operationToDelete.destroy()
-          if (operationToDelete.category === 'add_balance') {
-            const user = await db.User.findOne({
-              where: {
-                id: value
-            }})
-            await user.decrement('balance', {
-              by: operationToDelete.total
-            })
-           
-          }
+         
         } else {
           return;
         }
@@ -176,6 +139,7 @@ module.exports = {
     updateOperation: async (req, res) => {
         try {
           let value = await JSON.parse(Object.keys(req.body)[0]);
+         
           let updatedOperation = await db.Operation.update({
               name: value.name,
               description: value.description,
@@ -207,6 +171,20 @@ module.exports = {
       })
       
       res.json(user)
+    },
+    editInitialBalance: async (req, res) => {
+      try {
+        let value = await JSON.parse(Object.keys(req.body)[0]);
+        let updateBalance = await db.User.update({
+          balance: value.newBalance
+        }, {
+          where: {
+            id: value.user
+          }
+        })
+        return updateBalance
+      } catch (error) {
+        
+      }
     }
-
 }
