@@ -10,6 +10,7 @@ const { resolve } = require("path");
 module.exports = {
     users: (req, res) => {
       res.json(usersDb)
+      res.end()
     },
     setUsers: async (req, res) => {
       try {
@@ -185,6 +186,19 @@ module.exports = {
         return updateBalance
       } catch (error) {
         
+      }
+    },
+    deleteOperationBest: async (req, res) => {
+      try {
+        let operationToDelete = await db.Operation.destroy({
+          where: {
+            id: req.params.id
+          }
+        })
+
+        return operationToDelete
+      } catch (error) {
+        console.log("error on Remove");
       }
     }
 }

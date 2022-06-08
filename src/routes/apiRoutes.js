@@ -16,6 +16,8 @@ router.put('/editInitialBalance', apiController.editInitialBalance)
 router.get('/operationsList', apiController.operationsList)
 router.get('/operationsList/:id', apiController.operation)
 router.put('/operationsList/:id', apiController.deleteOperation)
+router.delete('/operationsList/:id', apiController.deleteOperationBest)
+
 router.get('/usersOperations/:id', apiController.usersOperations)
 router.post('/updateOperation', apiController.updateOperation);
 

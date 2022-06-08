@@ -5,6 +5,14 @@ const mainRoute = require("./routes/mainRoute")
 const apiRoutes = require("./routes/apiRoutes");
 const methodOverride = require('method-override')
 const cors = require("cors");
+const http = require("http")
+
+
+
+http.globalAgent.maxSockets = 100
+
+// Logic for re-initializing clientside after 100 sockets
+
 app.use(methodOverride('_method'))
 app.use(cors(), function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
