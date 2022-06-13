@@ -4,13 +4,17 @@ const usersJosn = fs.readFileSync((path.resolve(__dirname,"../database/users.jso
 const usersDb = JSON.parse(usersJosn);
 const db = require("../../database/models");
 const bcrypt = require('bcryptjs');
-const { resolve } = require("path");
+
 
 
 module.exports = {
     users: (req, res) => {
+     try {
       res.json(usersDb)
       res.end()
+     } catch (error) {
+       "error"
+     }
     },
     setUsers: async (req, res) => {
       try {
