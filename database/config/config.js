@@ -1,23 +1,23 @@
 module.exports = {
   "development": {
-    "username": process.env.PORT_DB ,
-    "password": process.env.PASS_DB ,
-    "database": process.env.NAME_DB ,
-    "host": process.env.USER_DB ,
+    "username": 'bc887d50dcb377' ,
+    "password": '6a8661fd' ,
+    "database": 'heroku_e829d285b7ddc09' ,
+    "host": 'us-cdbr-east-05.cleardb.net' ,
     "dialect": "mysql"
   },
   "test": {
-    "username": process.env.PORT_DB ,
-    "password": process.env.PASS_DB ,
-    "database": process.env.NAME_DB ,
-    "host": process.env.USER_DB ,
+    "username": 'bc887d50dcb377',
+    "password": '6a8661fd' ,
+    "database": 'heroku_e829d285b7ddc09' ,
+    "host": 'us-cdbr-east-05.cleardb.net' ,
     "dialect": "mysql"
   },
   "production": {
-    "username": process.env.PORT_DB ,
-    "password": process.env.PASS_DB ,
-    "database": process.env.NAME_DB ,
-    "host": process.env.USER_DB ,
+    "username": 'bc887d50dcb377',
+    "password": '6a8661fd' ,
+    "database": 'heroku_e829d285b7ddc09' ,
+    "host": 'us-cdbr-east-05.cleardb.net' ,
     "dialect": "mysql"
   }
 }
