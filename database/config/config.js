@@ -1,23 +1,23 @@
 module.exports = {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "node_db",
-    "host": "127.0.0.1",
+    "username": process.env.PORT_DB || "root",
+    "password": process.env.PASS_DB || null,
+    "database": process.env.NAME_DB || "node_db",
+    "host": process.env.USER_DB || "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "node_db",
-    "host": "127.0.0.1",
+    "username": process.env.PORT_DB || "root",
+    "password": process.env.PASS_DB || null,
+    "database": process.env.NAME_DB || "node_db",
+    "host": process.env.USER_DB || "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "node_db",
-    "host": "127.0.0.1",
+    "username": process.env.PORT_DB || "root",
+    "password": process.env.PASS_DB || null,
+    "database": process.env.NAME_DB || "node_db",
+    "host": process.env.USER_DB || "127.0.0.1",
     "dialect": "mysql"
   }
 }

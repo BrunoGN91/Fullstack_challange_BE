@@ -6,6 +6,7 @@ const apiRoutes = require("./routes/apiRoutes");
 const methodOverride = require('method-override')
 const cors = require("cors");
 const http = require("http")
+require('dotenv').config()
 
 
 
@@ -36,7 +37,7 @@ app.use('/api', apiRoutes)
 // Cors
 
 
-app.listen(8888, (req, res) => {
+app.listen(process.env.PORT || 8888, (req, res) => {
     console.log("listening to port 8888");
 })
 
