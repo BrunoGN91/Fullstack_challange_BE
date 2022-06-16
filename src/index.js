@@ -16,7 +16,7 @@ http.globalAgent.maxSockets = 100
 
 app.use(methodOverride('_method'))
 app.use(cors(), function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", 'https://balance-meter-challenge.netlify.app'); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGINS); // update to match the domain you will make the request from
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"

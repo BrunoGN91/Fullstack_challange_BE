@@ -13,17 +13,19 @@ to its partner in the heroku app.
 
 In order to start testing in a local enviroment you should:
 
-Replace the .env file
+Replace the .env.example file
 
 ```bash
-.env.development
+.env.example
 ```
 
 with
 
 ```bash
-.env.local
+.env
 ```
+
+That way you can config any port / host for your MySql database.
 
 so that you use your own local ports.
 
