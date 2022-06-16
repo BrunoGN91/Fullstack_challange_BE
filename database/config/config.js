@@ -1,23 +1,31 @@
 module.exports = {
   "development": {
-    "username": 'bc887d50dcb377' ,
-    "password": '6a8661fd' ,
-    "database": 'heroku_e829d285b7ddc09' ,
-    "host": 'us-cdbr-east-05.cleardb.net' ,
+    "username": process.env.PORT_DB ,
+    "password": process.env.PASS_DB ,
+    "database": process.env.NAME_DB ,
+    "host": process.env.USER_DB ,
     "dialect": "mysql"
   },
   "test": {
-    "username": 'bc887d50dcb377',
-    "password": '6a8661fd' ,
-    "database": 'heroku_e829d285b7ddc09' ,
-    "host": 'us-cdbr-east-05.cleardb.net' ,
+    "username": process.env.PORT_DB ,
+    "password": process.env.PASS_DB ,
+    "database": process.env.NAME_DB ,
+    "host": process.env.USER_DB ,
     "dialect": "mysql"
   },
   "production": {
-    "username": 'bc887d50dcb377',
-    "password": '6a8661fd' ,
-    "database": 'heroku_e829d285b7ddc09' ,
-    "host": 'us-cdbr-east-05.cleardb.net' ,
+    "username": process.env.PORT_DB ,
+    "password": process.env.PASS_DB ,
+    "database": process.env.NAME_DB ,
+    "host": process.env.USER_DB ,
     "dialect": "mysql"
   }
 }
+
+/*
+    "username": "root",
+    "password": null ,
+    "database": 'node_db' ,
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+*/

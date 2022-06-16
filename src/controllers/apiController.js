@@ -19,13 +19,23 @@ module.exports = {
     setUsers: async (req, res) => {
       try {
         let data = await JSON.parse(Object.keys(req.body)[0]);
-        let newUser = await db.User.create({
-          email: data.email,
-        password: bcrypt.hashSync(data.password, 10),
-        balance: data.balance
+        let allUsers = await db.User.findOne({ 
+          where: {
+            email: data.email
+          }
         })
-       
-        return newUser
+        if(!allUsers) {
+          let newUser = await db.User.create({
+            email: data.email,
+          password: bcrypt.hashSync(data.password, 10),
+          balance: data.balance
+          })
+          res.sendStatus(200)
+          return newUser
+        } else {
+          res.send("duplicate")
+        }
+        
       } catch (error) {
         return new Error()
       }
