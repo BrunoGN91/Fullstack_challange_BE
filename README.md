@@ -1,6 +1,8 @@
 
 ### Fullstack Challenge Backend
 
+https://balance-meter-challenge.netlify.app/
+
 Built in NodeJs, using Sequelize (MySQL) as an ORM connecting to an SQL RDBMS
 
 
